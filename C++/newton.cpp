@@ -2,22 +2,16 @@
 #include <vector>
 #include <string>
 #include <stdlib.h>
+#include "function.h"
 
 using namespace std;
 
-double functionMethod(double x) {
-    return pow(x,2) - (3 * x) - 4;
-}
-
-double functionDerivateMethod(double x) {
-    return (2 * x) - 3;
-}
 vector<vector<double>> newton(double x0,double tolerance, int max_iterations) {
     vector<vector<double>> returnList;
     vector<double> row;
 
-    double f_x = functionMethod(x0);
-    double df_x = functionDerivateMethod(x0);
+    double f_x = f(x0);
+    double df_x = dx(x0);
 
     int count = 0;
     double error = tolerance + 1;
@@ -32,8 +26,8 @@ vector<vector<double>> newton(double x0,double tolerance, int max_iterations) {
 
     while (error > tolerance&& count < max_iterations && f_x != 0 && df_x != 0) {
         double next_x = x0 - (f_x / df_x);
-        f_x = functionMethod(next_x);
-        df_x = functionDerivateMethod(next_x);
+        f_x = f(next_x);
+        df_x = dx(next_x);
 
         error = abs(next_x - x0);
         x0 = next_x;

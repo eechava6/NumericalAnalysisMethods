@@ -2,18 +2,15 @@
 #include <vector>
 #include <string>
 #include <stdlib.h>
+#include "function.h"
 
 using namespace std;
-
-double functionMethod(double x) {
-    return x - 2.35;
-}
 
 vector<vector<double>> incrementalSearch(double start, double step, double stop) {
     vector<vector<double>> returnList;
     vector<double> row;
     
-    double evaluated_f = functionMethod(start);
+    double evaluated_f = f(start);
     row.push_back(start);
     row.push_back(evaluated_f);
     row.push_back(0);
@@ -22,7 +19,7 @@ vector<vector<double>> incrementalSearch(double start, double step, double stop)
     row.clear();
 
     for(double i = start+step; i <= stop; i += step){
-        double mult = evaluated_f * functionMethod(i);
+        double mult = evaluated_f * f(i);
         double root;
         if(mult < 0){
             root = 1;
@@ -30,12 +27,12 @@ vector<vector<double>> incrementalSearch(double start, double step, double stop)
             root = 0;
         }
         row.push_back(i);
-        row.push_back(functionMethod(i));
+        row.push_back(f(i));
         row.push_back(mult);
         row.push_back(root);
         returnList.push_back(row);
         row.clear();
-        evaluated_f = functionMethod(i);
+        evaluated_f = f(i);
     }
     return returnList;
 }

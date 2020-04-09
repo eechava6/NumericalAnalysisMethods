@@ -2,13 +2,10 @@
 #include <vector>
 #include <string>
 #include <stdlib.h>
-#include <math.h>  
+#include "function.h"
 
 using namespace std;
 
-double f (double x) {
-    return  pow(x,4.5)-75;
-}
 
 double xrCalc(double xi, double xs){
     return xi - ((f(xi)*(xs-xi))/(f(xs)-f(xi)));

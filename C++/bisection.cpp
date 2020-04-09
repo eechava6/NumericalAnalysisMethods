@@ -2,19 +2,16 @@
 #include <vector>
 #include <string>
 #include <stdlib.h>
+#include "function.h"
 
 using namespace std;
-
-double functionMethod(double x) {
-    return x - 2.35;
-}
 
 vector<vector<double>> bisection(double a, double b, double tolerance, int max_iterators) {
     vector<vector<double>> returnList;
     vector<double> row;
     
-    double a_evaluated_f = functionMethod(a);
-    double b_evaluated_f = functionMethod(b);
+    double a_evaluated_f = f(a);
+    double b_evaluated_f = f(b);
 
     if (a_evaluated_f == 0) {
         cout << "root on " << a;
@@ -27,7 +24,7 @@ vector<vector<double>> bisection(double a, double b, double tolerance, int max_i
         int count = 1;
 
         double xMiddle = (a + b) / 2;
-        double yMiddle = functionMethod(xMiddle);
+        double yMiddle = f(xMiddle);
 
         double error = tolerance + 1;
 
@@ -55,7 +52,7 @@ vector<vector<double>> bisection(double a, double b, double tolerance, int max_i
             double auxMiddle = xMiddle;
 
             xMiddle = (a + b) / 2;
-            yMiddle = functionMethod(xMiddle);
+            yMiddle = f(xMiddle);
 
             error = abs(xMiddle - auxMiddle);
 
