@@ -1,7 +1,7 @@
 #include "function.h"
 
 double f(double x){
-    return pow(x,4.5)-75;
+    return pow(x,4)-x-10;
 }
 
 //pow(x,2) - (3 * x) - 4
@@ -15,5 +15,5 @@ double secondDf(double x){
 }
 
 double g(double x){
-    return 0;
+    return pow(x+10,0.25);
 }
