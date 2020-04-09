@@ -9,7 +9,7 @@ double functionMethod(double x) {
     return x - 2.35;
 }
 
-vector<vector<double>> biseccion(double a, double b, double tolerance, int max_iterators) {
+vector<vector<double>> bisection(double a, double b, double tolerance, int max_iterators) {
     vector<vector<double>> returnList;
     vector<double> row;
     
@@ -76,23 +76,23 @@ vector<vector<double>> biseccion(double a, double b, double tolerance, int max_i
 
 int main()
 {
-    cout << "Ingrese a" << "\n";
+    cout << "Enter a" << "\n";
     double a;
     cin >> a;
 
-    cout << "Ingrese b" << "\n";
+    cout << "Enter b" << "\n";
     double b;
     cin >> b;
 
-    cout << "Ingrese tolerancia" << "\n";
+    cout << "Enter tol" << "\n";
     double tolerancia;
     cin >> tolerancia;
 
-    cout << "Ingrese repeticiones" << "\n";
+    cout << "Enter max_iter" << "\n";
     int repeticiones;
     cin >> repeticiones;
 
-    vector<vector<double>> tabla = biseccion(a, b, tolerancia, repeticiones);
+    vector<vector<double>> tabla = bisection(a, b, tolerancia, repeticiones);
 
     for (int i = 0; i < tabla.size(); i++)
     {
