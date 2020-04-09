@@ -6,12 +6,12 @@ double f(double x){
 
 //pow(x,2) - (3 * x) - 4
 
-double dx(double x){
-    return (2 * x) - 3;
+double df(double x){
+    return (4*pow(x,3)) - 1;
 }
 
-double secondDf(double x){
-    return 0;
+double ddf(double x){
+    return 12*pow(x,2);
 }
 
 double g(double x){

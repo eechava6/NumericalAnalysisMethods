@@ -4,9 +4,9 @@
 
 double f(double x);  /* An example function declaration */
 
-double dx(double x);
+double df(double x);
 
-double secondDf(double x);
+double ddf(double x);
 
 double g(double x);
 
