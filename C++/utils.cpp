@@ -51,8 +51,15 @@ void helpWrite(vector<vector<double>> matrix){
         for (col = row->begin(); col != row->end(); col++) {
             outfile << *col << ' ';
         }
-      outfile << endl << endl;
+      outfile << endl;
       }
+}
+
+void helpCout(vector<double> vect){
+  for(int i = 0; i < vect.size(); i++){
+    cout << vect[i] << endl;
+  }
+  cout << "end" <<endl;
 }
 
 bool isSquared(vector<vector<double>> matrix){
@@ -74,6 +81,23 @@ vector<vector<double>> transpose(vector<vector<double>> matrix){
     return trans_vec;    // <--- reassign here
 }
 
+vector<vector<double>> regressiveSust(vector<vector<double>> matrix, int n, vector<double> indexes){
+    vector<vector<double>> solutions;
+    double sum; 
+    double xi;
+    for(int i  = n; i >= 0; i--){
+      sum = 0;
+      for(int y = i+1; y <= n; y++){
+        cout << solutions[n-y][1] <<endl;
+        sum = sum + matrix[i][y] * solutions[n-y][1];
+      }
+      xi = (matrix[i][n+1] - sum)/matrix[i][i];
+      solutions.push_back({indexes[i],xi});
+    }
+    
+    return solutions;
+}
+
 vector<double> getMultipliers(vector<vector<double>> matrix, int nCol){
     vector<vector<double>> mTrans = transpose(matrix);
     vector<double> col = mTrans[nCol];
@@ -93,12 +117,25 @@ vector<vector<double>> getSubM(vector<vector<double>> matrix, int start, int sto
   return result;
 }
 
-vector<vector<double>> broadcastMul(vector<vector<double>> matrix, vector<double> values){
+vector<vector<double>> broadcastOpt(vector<vector<double>> matrix, vector<double> values){
     vector<vector<double>> result;
     vector<double> temp;
     for(int i = 0; i < matrix.size(); i++){
       for(int y = 0; y < matrix[i].size(); y++){
-          temp.push_back(matrix[i][y]*values[y]);
+            temp.push_back(matrix[i][y]*values[i]);  
+      }
+      result.push_back(temp);
+      temp.clear();
+    }
+    return result;
+}
+
+vector<vector<double>> matrixSub(vector<vector<double>> matrix, vector<vector<double>> b){
+    vector<vector<double>> result;
+    vector<double> temp;
+    for(int i = 0; i < matrix.size(); i++){
+      for(int y = 0; y < matrix[i].size(); y++){
+            temp.push_back(matrix[i][y]-b[i][y]);
       }
       result.push_back(temp);
       temp.clear();
@@ -111,48 +148,39 @@ vector<vector<double>> rowOps(vector<vector<double>> matrix, int nCol, vector<do
     for(int i = 0; i < matrix.size()-1-nCol; i++){
       pivotM.push_back(matrix[nCol]);
     }
-    vector<vector<double>> mMatrix = broadcastMul(pivotM, multipliers); //broadcast multipliers * pivtM
-    helpWrite(mMatrix);
-    vector<vector<double>> result; // Encajamos con la parte restante de la matriz
-    return result;
+    vector<vector<double>> mMatrix = broadcastOpt(pivotM, multipliers); //broadcast multipliers * pivtM
+    vector<vector<double>> subM = getSubM(matrix,nCol+1,matrix.size());
+    subM = matrixSub(subM,mMatrix);
+    //Add upper part of matrix
+    for(int i = nCol; i >= 0 ; i--){
+      subM.insert(subM.begin(),matrix[i]);
+    }
+    return subM;
 }
 
 
 int calcDeterminant(vector<vector<double>> Matrix){
-        //this function is written in c++ to calculate the determinant of matrix
-        // it's a recursive function that can handle matrix of any dimension
-        int det = 0; // the determinant value will be stored here
-        if (Matrix.size() == 1)
-        {
+        int det = 0;
+        if (Matrix.size() == 1){
             return Matrix[0][0]; // no calculation needed
         }
-        else if (Matrix.size() == 2)
-        {
+        else if (Matrix.size() == 2){
             //in this case we calculate the determinant of a 2-dimensional matrix in a 
             //default procedure
             det = (Matrix[0][0] * Matrix[1][1] - Matrix[0][1] * Matrix[1][0]);
             return det;
         }
-        else
-        {
-            //in this case we calculate the determinant of a squared matrix that have 
-            // for example 3x3 order greater than 2
-            for (int p = 0; p < Matrix[0].size(); p++)
-            {
-                //this loop iterate on each elements of the first row in the matrix.
-                //at each element we cancel the row and column it exist in
-                //and form a matrix from the rest of the elements in the matrix
+        else{
+            //order greater than 2
+            for (int p = 0; p < Matrix[0].size(); p++){
+                // form a matrix from the rest of the elements in the matrix
                 vector<vector<double>> TempMatrix; // to hold the shaped matrix;
-                for (int i = 1; i < Matrix.size(); i++)
-                {
+                for (int i = 1; i < Matrix.size(); i++){
                     // iteration will start from row one cancelling the first row values
                     vector<double> TempRow;
-                    for (int j = 0; j < Matrix[i].size(); j++)
-                    {
-                        // iteration will pass all cells of the i row excluding the j 
+                    for (int j = 0; j < Matrix[i].size(); j++){
                         //value that match p column
-                        if (j != p)
-                        {
+                        if (j != p){
                            TempRow.push_back(Matrix[i][j]);//add current cell to TempRow 
                         }
                     }
@@ -163,9 +191,7 @@ int calcDeterminant(vector<vector<double>> Matrix){
                     //matrix will be formed
                 }
                 det = det + Matrix[0][p] * pow(-1, p) * calcDeterminant(TempMatrix);
-                //then we calculate the value of determinant by using a recursive way
-                //where we re-call the function by passing to it the new formed matrix
-                //we keep doing this until we get our determinant
+                //calculate the value of determinant by using a recursive way
             }
             return det;
         }

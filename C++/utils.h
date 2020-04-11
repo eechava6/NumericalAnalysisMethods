@@ -23,4 +23,7 @@ vector<double> getMultipliers(vector<vector<double>> matrix,int nCol);
 vector<vector<double>> rowOps(vector<vector<double>> matrix, int nCol, vector<double> multipliers);
 
 vector<vector<double>> transpose(vector<vector<double>> matrix);
+
+vector<vector<double>> regressiveSust(vector<vector<double>> matrix, int n, vector<double> indexes);
+
 #endif // function

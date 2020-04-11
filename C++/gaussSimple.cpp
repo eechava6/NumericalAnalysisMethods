@@ -10,6 +10,7 @@ using namespace std;
 
 vector<vector<vector<double>>> gaussSimple(vector<vector<double>> matrix){
   vector<vector<vector<double>>> pivots; 
+  vector<double> indexes; 
   pivots.push_back(matrix);
   if(!isSquared(matrix)){
     cout << "Not square + 1 col matrix" << endl;
@@ -20,10 +21,26 @@ vector<vector<vector<double>>> gaussSimple(vector<vector<double>> matrix){
     return pivots;
   }
   int times = matrix.size()-1;
-  for(int nCol = 0; nCol < 1; nCol++){//remember put again times
-      if(matrix[nCol][nCol] == 0){
-        //do something
-        true;
+  for(int i = 0; i <= times; i++ ){
+    indexes.push_back(i);
+  }
+
+  for(int nCol = 0; nCol < times; nCol++){
+      if(matrix[nCol][nCol] == 0.0){
+        int index;
+        for(int i = nCol; i < matrix.size(); i++){
+          if(matrix[i][nCol] != 0){
+            index = i;
+            break;
+          }
+        }
+        matrix[nCol].swap(matrix[index]);
+        //Needs validation ------------------------------------------------
+        int temInd = indexes[nCol];
+        indexes[nCol] = indexes[index];
+        indexes[index] = temInd;
+        vector<vector<double>> temp =matrix; 
+        pivots.push_back(temp);
       }
       vector<double> multipliers = getMultipliers(matrix, nCol);
       bool checkZero = true;
@@ -37,13 +54,10 @@ vector<vector<vector<double>>> gaussSimple(vector<vector<double>> matrix){
         pivots.push_back(matrix);
       }
   }
+  matrix = regressiveSust(matrix,times,indexes);
+  pivots.push_back(matrix);
   return pivots;
 }
-
-/*
-  times = A[:,0].size-1
-  indexes = np.arange(0,times+1)
-*/
 
 int main (){
   /*string filename;
