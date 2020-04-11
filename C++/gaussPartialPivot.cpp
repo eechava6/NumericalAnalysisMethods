@@ -26,32 +26,33 @@ vector<vector<vector<double>>> gaussSimple(vector<vector<double>> matrix){
   }
 
   for(int nCol = 0; nCol < times; nCol++){
-      if(matrix[nCol][nCol] == 0.0){
-        int index;
-        for(int i = nCol; i < matrix.size(); i++){
-          if(matrix[i][nCol] != 0){
-            index = i;
-            break;
-          }
+    int index;
+    double max = 0;
+    for(int i = nCol; i < matrix.size(); i++){
+        if(abs(matrix[i][nCol]) > abs(max)){
+        index = i;
+        max = matrix[i][nCol];
         }
+    }
+    if(abs(max) > matrix[nCol][nCol]){
         matrix[nCol].swap(matrix[index]);
         int temInd = indexes[nCol];
         indexes[nCol] = indexes[index];
         indexes[index] = temInd;
         vector<vector<double>> temp =matrix; 
         pivots.push_back(temp);
-      }
-      vector<double> multipliers = getMultipliers(matrix, nCol);
-      bool checkZero = true;
-      for(int i = 0; i < multipliers.size(); i++){
+    }    
+    vector<double> multipliers = getMultipliers(matrix, nCol);
+    bool checkZero = true;
+    for(int i = 0; i < multipliers.size(); i++){
         if(multipliers[i] != 0){
-          checkZero = false;
+            checkZero = false;
         }
-      }
-      if(!checkZero){
+    }
+    if(!checkZero){
         matrix = rowOps(matrix,nCol,multipliers);
         pivots.push_back(matrix);
-      }
+    }
   }
   matrix = regressiveSust(matrix,times,indexes);
   pivots.push_back(matrix);

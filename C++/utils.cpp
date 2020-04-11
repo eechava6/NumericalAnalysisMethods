@@ -88,7 +88,6 @@ vector<vector<double>> regressiveSust(vector<vector<double>> matrix, int n, vect
     for(int i  = n; i >= 0; i--){
       sum = 0;
       for(int y = i+1; y <= n; y++){
-        cout << solutions[n-y][1] <<endl;
         sum = sum + matrix[i][y] * solutions[n-y][1];
       }
       xi = (matrix[i][n+1] - sum)/matrix[i][i];
