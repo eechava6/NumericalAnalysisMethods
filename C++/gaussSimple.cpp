@@ -59,10 +59,10 @@ vector<vector<vector<double>>> gaussSimple(vector<vector<double>> matrix){
 }
 
 int main (){
-  /*string filename;
+  string filename;
   cout << "Enter filename with matrix separated by spaces" <<endl; 
-  cin >> filename;*/
-  vector<vector<double>> matrix = parseMatrix("input.txt");
+  cin >> filename;
+  vector<vector<double>> matrix = parseMatrix(filename);
   vector<vector<vector<double>>> result = gaussSimple(matrix);
   writeTable(result);
 }
