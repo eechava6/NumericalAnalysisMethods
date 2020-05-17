@@ -1,11 +1,10 @@
 function jacobi(A, b, x , normVal, tol, iters)
-    D = diagonal(A)
     if(D has 0) return err
-    L = -1 * tril(A) + D
-    U = -1 * triu(A) + D
-    T = inv(D)*(L+U)
-    C = inv(D)*b
-    SR= max(abs(eigvals(T)))
+    L = -1 * triangularLow(A) + diagonal(A)
+    U = -1 * triangularUp(A) + diagonal(A)
+    T = inverse(D)*(L+U)
+    C = inverse(D)*b
+    SR= max(abs(eigenValues(T)))
     if(SR > 1) return err
     ite = 0
     while(norm > tol && ite < iteMax)
