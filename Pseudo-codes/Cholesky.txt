@@ -1,0 +1,55 @@
+
+cholesky
+A= nueva matrizA
+b= nuevo vectorb
+Z = Matriz zeros
+X = Matriz zeros
+Matriz = [A b]
+n= tamaño de b
+
+para k=1 hasta n
+suma=0
+para p=1 hasta k-1
+suma = suma+L(k,p)*U(p,k)
+finpara
+L(k,k) = raizCuadrada(A(k,k)-suma)
+U(k,k) = L(k,k)
+
+para i = k+1 hasta n
+suma = 0
+para p = 1 hasta k-1
+suma = suma + L(i,p)*U(p,k)
+finpara
+L(i,k) = (A(i,k)-suma)/L(k,k)
+finpara
+
+para j=k+1 hasta n
+suma = 0
+para p = 1 hasta k-1
+suma = suma + L(k,p)*U(p,j)
+finpara
+U(k,j) = (A(k,j)-suma)/L(k,k)
+finpara
+finpara
+
+
+imprima(L)
+imprima(U)
+
+
+para i=1 hasta n
+suma = 0
+para p = 1 hasta i-1
+suma=suma+Lb(i,p)*Z(p,1)
+finpara
+Z(i,1)=(Lb(i,n+1)-suma)/Lb(i,i)
+finpara
+imprima(Z)
+
+para i=n hasta -1 hasta 1
+suma=0
+para p=i+1 hasta n
+suma=suma+U(i,p)*X(p)
+finpara
+X(i)=(Lu(i, n+1)-suma)/Lu(i,i)
+finpara
