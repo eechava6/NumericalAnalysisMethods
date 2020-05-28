@@ -1,0 +1,12 @@
+read matrix A, vector b
+
+if matrix A is square then
+	get the bigger element of each submatrix of matrix A
+	row changes to put the bigger element on the diagonal
+	get multipliers for each column
+	row operations to get zeros below the diagonal
+	get augmented matrix A.b
+	solve the equation to get xn with regresive sustitution on the augmented matrix
+
+else
+	matrix isn't square

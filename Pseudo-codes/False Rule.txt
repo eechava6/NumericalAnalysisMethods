@@ -1,0 +1,27 @@
+read xi, xs, toleration, iteration-number
+
+xr = f(xi, xs)
+
+f(xi,xs) = xi - ((f(xi)*(xs-xi))/(f(xs)-f(xi)))
+
+while error > toleration and count < iteration-number:
+	
+	if(fxr < 0)
+		xi = xr
+	else xi
+	
+	if(fxr > 0)
+		xs = xr
+	else xs
+
+	tempxr = xr
+	xr = f(xi, xs)
+	error = |xr - tempxr|
+
+	if f(xr) == 0
+		root found
+	else if error < toleration
+		error lower than toleration
+	else if count >= iteration-number
+		Maximum iteration passed
+

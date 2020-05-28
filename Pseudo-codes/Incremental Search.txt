@@ -1,0 +1,23 @@
+read x0, step, iteration-number
+
+evaluate x0 on function
+
+if f(x0) = 0 then
+	x0 is root
+else
+	x1 = x0 + step
+	evaluate x1 on function
+	
+	while f(x0) * f(x1) > 0 and count < iteration-number 
+		x0 = x1
+		f(x0) = f(x1)
+		x1 = x0 + step
+
+	if f(x1) = 0
+		x1 is root
+	
+	else if f(x0) * f(x1) < 0
+		there is a root between x0 and x1
+	
+	else
+		failed in iteration-number iterations

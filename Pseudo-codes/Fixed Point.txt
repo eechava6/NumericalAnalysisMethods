@@ -1,0 +1,17 @@
+read xi, tolerance, iteration-number
+
+while error > tolerance and count <= iteration-number
+	xn = g(xi)
+	gxi = g(xn)
+	fxi = f(xn)
+	error = |xn - xi|
+	xi = xn
+
+if f(xi) == 0
+	root is found
+
+else if error < tolerance
+	error lower than tolerance
+	
+else if count >= iteration-number
+	maximum iteration

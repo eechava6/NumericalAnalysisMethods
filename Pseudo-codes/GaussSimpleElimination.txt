@@ -1,0 +1,10 @@
+read matrix A, vector b
+
+if matrix A is square then
+	get multipliers for each column
+	row operations to get zeros below the diagonal
+	get augmented matrix A.b
+	solve the equation to get xn with regresive sustitution on the augmented matrix
+
+else
+	error the matrix isn't square

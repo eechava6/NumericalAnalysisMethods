@@ -1,0 +1,21 @@
+read tolerance, x0, iteration-number
+
+while error > tolerance and count < iteration-number and fx not equals 0 and f'x not equals 0
+	
+	get the succession with the formula xn = x0 - (fx / f'x)
+	evaluate the function and the derivative with the formula
+	error = |xn -x0|
+	x0 = xn
+
+if fx == 0
+	x0 is a root
+
+else if error <= tolerance
+	x0 is an approximation with tolerance tolerance
+
+else if f'x == 0
+	xn is a possible multiple root
+	
+else
+	maximum iterations
+

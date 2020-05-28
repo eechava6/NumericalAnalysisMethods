@@ -1,0 +1,20 @@
+read xi, tolerance, iteration-number
+
+get the derivative of the function
+get the second derivative of the function
+
+while error > tolerance and count <= iteration-number
+	xi temp = xi
+	evaluate xi on the function xn
+	error = |xi - xi temp|
+	
+	if f(xi) == 0 then
+		root found
+
+	else if error < tolerance then
+		error lower than tolerance
+
+	else if count >= iteration-number then
+		maximum iterations
+
+get the sucession with the formula xn - f(xn) * f'(xn) / (f'(xn)^2) - f(xn) * f''(xn)
